@@ -1,0 +1,81 @@
+<div class="container">
+  <form>
+    <div class="row">
+      <div class="col-12">
+      <div class="card text-center">
+        <div class="card-title">Search Task</div>
+        <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <div class="input-group">
+                  <div class="input-group-prepend"><span class="col-form-label">Task:&nbsp;&nbsp;&nbsp;</span></div>
+                  <input class="form-control" #title="ngModel" [(ngModel)]="filterTask.title"  name="title"
+                         placeholder="" type="text"/>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6 input-group">
+                <div class="input-group-prepend"><span class="col-form-label">Parent Task:&nbsp;&nbsp;&nbsp;</span></div>
+                <input class="form-control" #parentTask="ngModel" [(ngModel)]="filterTask.parentTask"
+                       name="parentTask" placeholder="" type="text"/>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-6 col-md-6 col-lg-6 input-group">
+                <div class="input-group-prepend"><span class="col-form-label">Priority From:&nbsp;&nbsp;&nbsp;</span></div>
+                <input class="form-control " name="min" [(ngModel)]="min" type="range"/>
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6 input-group">
+                <div class="input-group-prepend"><span class="col-form-label">Priority To:&nbsp;&nbsp;&nbsp;</span></div>
+                <input class="form-control" name="max" [(ngModel)]="max" type="range"/>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-6 input-group">
+                <div class="input-group-prepend"><span class="col-form-label">Start Date:&nbsp;&nbsp;&nbsp;</span></div>
+                <input class="form-control" name="StartDate" [(ngModel)]="filterTask.startDate" type="date"/>
+              </div>
+              <div class="col-sm-6 input-group">
+                <div class="input-group-prepend"><span class="col-form-label">End Date:&nbsp;&nbsp;&nbsp;</span></div>
+                <input class="form-control" name="endDate" [(ngModel)]="filterTask.endDate" type="date"/>
+              </div>
+            </div>
+            <br>
+          <div class="card-footer text-muted" *ngIf="tasks && tasks.length >= 1">           &nbsp;          </div>
+          <div  *ngIf="tasks && tasks.length >= 1">
+              <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                  <td >Task ID</td>
+                  <td >Task</td>
+                  <td >Parent</td>
+                  <td >Priority</td>
+                  <td >Start</td>
+                  <td >End</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let t of tasks | filterPipe : filterTask:min:max" >
+                  <td  (click)="update(t)">{{t.id}}</td>
+                  <td  (click)="update(t)">{{t.title}}</td>
+                  <td  (click)="update(t)" ></td>
+                  <td  (click)="update(t)">{{t.priority}}</td>
+                  <td  (click)="update(t)" >{{t.startDate | date:"dd-MM-yyyy"}}</td>
+                  <td  (click)="update(t)">{{t.endDate | date:"dd-MM-yyyy"}}</td>
+                  <td >
+                    <a (click)="update(t)" class="btn btn-primary" role="button" routerLinkActive="active">Edit Task</a>
+                  </td>
+                  <td >
+                    <a (click)="delete(t)" class="btn btn-danger" role="button" routerLinkActive="active">End Task</a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

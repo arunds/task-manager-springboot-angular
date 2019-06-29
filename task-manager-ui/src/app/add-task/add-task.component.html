@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-title">Add Task</div>
+        <div class="card-body">
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+          <div *ngIf="f.form.inValid">
+          </div>
+            <!-- Task Title -->
+            <div class="form-group row">
+              <!-- Material input -->
+              <label for="taskTitle" class="col-sm-2 col-form-label">Task:</label>
+              <div class="col-sm-6">
+                <div class="md-form mt-0">
+                  <input #title="ngModel" [(ngModel)]="task.title"
+                     class="form-control" name="title"
+                     [ngClass]="{ 'is-invalid': f.submitted && title.invalid }"
+                     required="required" minlength="1"
+                     required="required" maxlength="255"
+                     type="text" id="taskTitle"  />
+
+                     <div *ngIf="f.submitted && title.invalid" >
+                      <div *ngIf="title.errors.required">Title is required min 4 and max 255 characters .</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task Priority -->
+          <div class="form-group row">
+            <!-- Material input -->
+            <label for="taskPriority" class="col-sm-2 col-form-label">Priority:</label>
+            <div class="col-sm-6">
+              <div class="md-form mt-0">
+                <input #priority="ngModel" [(ngModel)]="task.priority" class="form-control"
+                     max="5" min="0" name="priority"
+                     [ngClass]="{ 'is-invalid': f.submitted && priority.invalid }"
+                     required
+                     type="range" id="taskPriority"/>
+              <div *ngIf="f.submitted && priority.invalid" >
+                <div *ngIf="priority.errors.required">priority is required.</div>
+              </div>
+              </div>
+            </div>
+          </div>
+
+
+            <!--Parent -->
+          <div class="form-group row">
+            <!-- Material input -->
+            <label for="parentId" class="col-sm-2 col-form-label">Parent Task:</label>
+            <div class="col-sm-6">
+              <div class="md-form mt-0">
+                <select class="form-control" id="parentId" name="parentId" [(ngModel)]="parentId"
+                (ngModelChange)="saveParentTask()">
+                 <option *ngFor="let tsk of tasks"
+                  value="{{tsk.id}}">{{tsk.title}}</option>
+              </select>
+              </div>
+            </div>
+          </div>
+         
+
+            <!-- Start Date-->
+          <div class="form-group row">
+            <!-- Material input -->
+            <label for="taskStartDate" class="col-sm-2 col-form-label">Start Date:</label>
+            <div class="col-sm-6">
+              <div class="md-form mt-0">
+                <input #startDate="ngModel" [(ngModel)]="task.startDate"
+                class="form-control" name="stDate" type="date" id="taskStartDate"
+                [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
+                required/>
+                <div *ngIf="f.submitted && startDate.invalid" >
+                  <div *ngIf="startDate.errors.required">StartDate is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <!--End date -->
+
+          <div class="form-group row">
+            <!-- Material input -->
+            <label for="taskEndDate" class="col-sm-2 col-form-label">End Date:</label>
+            <div class="col-sm-6">
+              <div class="md-form mt-0">
+                <input #endDate="ngModel"  [(ngModel)]="task.endDate" class="form-control" name="etDate" type="date" id="taskEndDate"/>
+                <div *ngIf="f.submitted && startDate.invalid" >
+                  <div *ngIf="startDate.errors.required">EndDate is required.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row col-sm-6 col-md-6 ">
+            <button class="btn btn-primary" type="submit" role="button" >Add Task</button>&nbsp;&nbsp;
+            <a class="btn btn-primary" routerLink="/view" role="button" routerLinkActive="active">Reset</a>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
