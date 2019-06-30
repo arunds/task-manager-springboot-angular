@@ -53,6 +53,7 @@
                   <td >Priority</td>
                   <td >Start</td>
                   <td >End</td>
+                  <td>Status</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,11 +64,14 @@
                   <td  (click)="update(t)">{{t.priority}}</td>
                   <td  (click)="update(t)" >{{t.startDate | date:"dd-MM-yyyy"}}</td>
                   <td  (click)="update(t)">{{t.endDate | date:"dd-MM-yyyy"}}</td>
-                  <td >
-                    <a (click)="update(t)" class="btn btn-primary" role="button" routerLinkActive="active">Edit Task</a>
+                  <td  (click)="update(t)">{{t.status}}</td>
+                  <td>
+                        <a *ngIf="t.status != 'ENDED'" (click)="update(t)" class="btn btn-primary" role="button" routerLinkActive="active">Edit Task</a>
+                        &nbsp;
                   </td>
                   <td >
-                    <a (click)="delete(t)" class="btn btn-danger" role="button" routerLinkActive="active">End Task</a>
+                    <a *ngIf="t.status != 'ENDED'" (click)="delete(t)" class="btn btn-danger" role="button" routerLinkActive="active">End Task</a>
+                    &nbsp;
                   </td>
                 </tr>
                 </tbody>

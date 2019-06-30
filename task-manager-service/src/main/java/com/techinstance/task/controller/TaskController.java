@@ -52,7 +52,10 @@ public class TaskController {
     public ResponseEntity delete(@RequestBody String id) {
     	logger.info("Deleting task   # "+id);
         if (id != null) {
-            service.delete(Long.valueOf(id));
+            //service.delete(Long.valueOf(id));
+            Task task = service.get(Long.valueOf(id));
+            task.setStatus("ENDED");
+            service.saveUpdate(task);
         }
         return ResponseEntity.ok().build();
 

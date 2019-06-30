@@ -35,7 +35,7 @@
           <div class="col-sm-6">
             <div class="md-form mt-0">
               <input #priority="ngModel" [(ngModel)]="task.priority" class="form-control"
-                   max="5" min="0" name="priority"
+                   max="30" min="0" name="priority"
                    [ngClass]="{ 'is-invalid': f.submitted && priority.invalid }"
                    required
                    type="range" id="taskPriority"/>

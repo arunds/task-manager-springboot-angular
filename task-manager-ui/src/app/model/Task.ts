@@ -6,4 +6,5 @@ export class Task {
    endDate: Date;
    summary: string;
    parentTask: Task;
+   status: string;
 }

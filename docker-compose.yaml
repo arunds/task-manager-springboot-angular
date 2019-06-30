@@ -1,0 +1,48 @@
+version: '3'
+services:
+  task-app-nginx:
+   container_name: task-app-nginx
+   image: nginx:1.13
+   restart: always
+   ports:
+   - 80:80
+   - 443:443
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+  task-app-mysql:
+   container_name: task-app-mysql
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_USER: root
+    MYSQL_DATABASE: task_manager_db
+    MYSQL_PASSWORD: Test@Data@321
+    MYSQL_ROOT_PASSWORD: Test@Data@321
+    MYSQL_ROOT_HOST: '%'
+   ports:
+    - "3306:3306"
+   restart: always
+  task-app:
+    image: arunds/task-manager-service:0.0.1-SNAPSHOT
+   # build:
+   #    context: ./task-manager-service
+   #    dockerfile: ./Dockerfile
+    restart: always
+    working_dir: /task-manager-service
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    #command: mvn clean spring-boot:run
+    depends_on:  
+      - task-app-nginx
+      - task-app-mysql
+      - task-app-ui
+  task-app-ui:
+    image: task-manager-ui
+    build:
+      context: ./task-manager-ui
+      dockerfile: ./Dockerfile
+    ports:
+      - 4200:4200
+    expose:
+      - "4200"

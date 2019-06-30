@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Task Manager';
+
+  isCollapsed = false;
+
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
+  }
 }
