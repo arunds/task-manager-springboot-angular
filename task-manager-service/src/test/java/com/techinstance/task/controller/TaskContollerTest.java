@@ -71,8 +71,7 @@ public class TaskContollerTest {
 	
 	@Test
 	public void testDeleteTask() throws Exception {
-		Task t = createTask("Create UI");
-		BDDMockito.doNothing().when(serviceMock).delete(t.getId());
+		given(serviceMock.get(Long.valueOf(1))).willReturn(createTask("Create UI"));
 		mockMvc.perform(post("/task-manager/delete").contentType(MediaType.APPLICATION_JSON).content("1")).andExpect(status().isOk());
 	}
 
